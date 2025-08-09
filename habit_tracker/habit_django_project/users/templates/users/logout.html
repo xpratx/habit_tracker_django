@@ -1,0 +1,44 @@
+
+{% extends "habit/base.html" %}
+
+{% block content %}
+<!-- Include Google Fonts in your base.html or here -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+    .content-section {
+        max-width: 450px;
+        margin: 2rem auto;
+        padding: 2rem 3rem;
+        background: #e6f4ea; /* Light green background */
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 128, 0, 0.15); /* Greenish shadow */
+        font-family: 'Montserrat', sans-serif;
+    }
+   
+    button.btn-outline-info {
+        background-color: #4caf50; /* Green */
+        border: none;
+        color: white;
+        font-weight: 600;
+        padding: 0.7rem 1.8rem;
+        border-radius: 30px;
+        width: 100%;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+    button.btn-outline-info:hover {
+        background-color: #388e3c; /* Darker green on hover */
+    }
+    
+    
+    small.text-muted {
+        font-size: 0.9rem;
+        color: #555;
+    }
+</style>
+
+<div class="content-section">
+    You have been logged out
+</div>
+{% endblock content %}

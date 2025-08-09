@@ -1,0 +1,19 @@
+
+{% extends "habit/base.html" %}
+{% block content %}
+<main class="flex-grow-1 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="container" style="max-width: 450px;">
+    <div class="card shadow-sm border-danger">
+      <div class="card-body">
+        <h3 class="fw-bold text-danger mb-3">Confirm Delete</h3>
+        <p>Are you sure you want to delete habit: <span class="fw-semibold text-success">"{{ habit.name }}"</span>?</p>
+        <form method="post" class="d-flex gap-2">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger rounded-pill fw-semibold flex-fill">Yes, Delete</button>
+          <a href="{% url 'habit-edits' %}" class="btn btn-outline-success rounded-pill flex-fill">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

@@ -1,0 +1,65 @@
+{% extends "habit/base.html" %}
+{% block content %}
+{% now 'Y-m-d' as now %}
+<main class="flex-grow-1 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="container" style="max-width: 600px;">
+    <div class="mb-4 text-center">
+      <h2 class="fw-bold text-success">Daily Habit Tracker</h2>
+      <div class="fs-5 text-muted">{{ today|date:'F j, Y' }} &mdash; <span class="fw-semibold text-success">{{ day_name }}</span></div>
+      <form method="get" class="d-flex justify-content-center align-items-center gap-2 mt-2" style="flex-wrap: wrap;">
+        <input type="date" name="date" value="{{ today|date:'Y-m-d' }}" class="form-control form-control-sm" style="max-width: 160px;">
+        <button type="submit" class="btn btn-outline-success btn-sm">Go</button>
+        <a href="?date={{ prev_date|date:'Y-m-d' }}" class="btn btn-outline-success btn-sm">&larr; Previous</a>
+        {% if not is_today %}
+        <a href="?date={{ next_date|date:'Y-m-d' }}" class="btn btn-outline-success btn-sm">Next &rarr;</a>
+        {% endif %}
+  <a href="?date={{ now }}" class="btn btn-link btn-sm text-success">Today</a>
+      </form>
+    </div>
+    {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+    <form method="post">
+      {% csrf_token %}
+      <div class="card shadow-sm">
+        <div class="card-body p-0">
+          <table class="table table-hover mb-0 align-middle">
+            <thead class="table-success">
+              <tr>
+                <th>Habit</th>
+                <th>Description</th>
+                <th class="text-center">Progress</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in habit_status %}
+              <tr>
+                <td class="fw-semibold">{{ item.habit.name }}</td>
+                <td>{{ item.habit.description }}</td>
+                <td class="text-center">
+                  {% if item.habit.tracking_type == 'bool' %}
+                    <input type="checkbox" name="{{ item.habit.id }}" {% if item.completed %}checked{% endif %}>
+                  {% else %}
+                    <input type="number" name="value_{{ item.habit.id }}" value="{{ item.value|default:'' }}" class="form-control form-control-sm" style="max-width: 100px; display: inline-block;">
+                  {% endif %}
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="3" class="text-center text-muted py-4">No habits found. Please add some!</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success rounded-pill w-100 fw-semibold mt-3">Save Today's Progress</button>
+    </form>
+  </div>
+</main>
+{% endblock content %}

@@ -1,0 +1,21 @@
+
+{% extends "habit/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<main class="flex-grow-1 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="container" style="max-width: 450px;">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h3 class="fw-bold text-success mb-4">Edit Habit: "{{ habit.name }}"</h3>
+        <form method="post" novalidate>
+          {% csrf_token %}
+          {{ form|crispy }}
+          <div class="form-text mb-2">Choose how you want to track this habit: Checkbox (Yes/No) or Integer (Number, e.g. calories, steps).</div>
+          <button type="submit" class="btn btn-success rounded-pill w-100 fw-semibold mt-3">Save Changes</button>
+        </form>
+        <a href="{% url 'habit-edits' %}" class="btn btn-link mt-3 text-success">← Back to habit list</a>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

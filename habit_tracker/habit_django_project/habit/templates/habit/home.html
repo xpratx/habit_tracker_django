@@ -1,0 +1,18 @@
+
+{% extends "habit/base.html"%}
+{% block content %}
+            <main class="flex-grow-1 d-flex justify-content-center align-items-center">
+      
+                        {% if username %}
+                                                        <h1 class="display-3 fw-bold mb-4" style="color:#198754; font-family:'Segoe UI', Arial, sans-serif; text-shadow:1px 1px 8px #e6f4ea; letter-spacing:2px;">
+                                                                Hello, {{ username|title }}!
+                                                        </h1>
+                                                        <p class="lead text-muted mt-2">Welcome back to your Habit Tracker.</p>
+                        {% else %}
+                                                        <h1 class="display-3 fw-bold mb-4" style="color:#198754; font-family:'Segoe UI', Arial, sans-serif; text-shadow:1px 1px 8px #e6f4ea; letter-spacing:2px;">
+                                                                Hello, Guest!
+                                                        </h1>
+                                                        <p class="lead text-muted mt-2">Sign in to start tracking your habits.</p>
+                        {% endif %}
+    </main>
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends "habit/base.html" %}
+{% block content %}
+<main class="flex-grow-1 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="container" style="max-width: 700px;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="fw-bold text-success">Manage Your Habits</h2>
+      <a href="{% url 'add-habit' %}" class="btn btn-success rounded-pill px-4 fw-semibold">+ Add Habit</a>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body p-0">
+        <table class="table table-hover mb-0 align-middle">
+          <thead class="table-success">
+            <tr>
+              <th>Habit Name</th>
+              <th>Description</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for habit in habits %}
+            <tr>
+              <td class="fw-semibold">{{ habit.name }}</td>
+              <td>{{ habit.description }}</td>
+              <td class="text-end">
+                <a href="{% url 'edit-habit' habit.id %}" class="btn btn-outline-success btn-sm me-2">Edit</a>
+                <a href="{% url 'delete-habit' habit.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="3" class="text-center text-muted py-4">No habits found. Please add some!</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
+

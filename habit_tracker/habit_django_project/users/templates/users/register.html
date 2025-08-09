@@ -1,0 +1,75 @@
+
+{% extends "habit/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- Include Google Fonts in your base.html or here -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+    .content-section {
+        max-width: 450px;
+        margin: 2rem auto;
+        padding: 2rem 3rem;
+        background: #e6f4ea; /* Light green background */
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 128, 0, 0.15); /* Greenish shadow */
+        font-family: 'Montserrat', sans-serif;
+    }
+    legend {
+        font-weight: 600;
+        font-size: 1.6rem;
+        color: #2a7a2a; /* Dark green title */
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid #4caf50; /* Green underline */
+        padding-bottom: 0.3rem;
+    }
+    button.btn-outline-info {
+        background-color: #4caf50; /* Green */
+        border: none;
+        color: white;
+        font-weight: 600;
+        padding: 0.7rem 1.8rem;
+        border-radius: 30px;
+        width: 100%;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+    button.btn-outline-info:hover {
+        background-color: #388e3c; /* Darker green on hover */
+    }
+    .form-group a {
+        color: #4caf50;
+        font-weight: 600;
+        text-decoration: none;
+        margin-left: 0.5rem;
+        transition: color 0.3s ease;
+    }
+    .form-group a:hover {
+        color: #388e3c;
+        text-decoration: underline;
+    }
+    small.text-muted {
+        font-size: 0.9rem;
+        color: #555;
+    }
+</style>
+
+<div class="content-section">
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend>Join Today</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button type="submit" class="btn-outline-info">Sign Up</button>
+        </div>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Already have an account?
+            <a href="{% url 'login' %}">Sign In</a>
+        </small>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,97 @@
+{% extends "habit/base.html" %}
+{% block content %}
+<main class="flex-grow-1 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="container" style="max-width: 900px;">
+    <div class="mb-4 text-center">
+      <h2 class="fw-bold text-success">Habit Analytics</h2>
+      <div class="fs-5 text-muted">Progress for the past week and month</div>
+    </div>
+    {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+    {% if analytics %}
+      {% for item in analytics %}
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="fw-bold text-success">{{ item.habit_name }}</h5>
+            <div class="mb-2 text-muted">{{ item.habit_description }}</div>
+            <div class="row">
+              <div class="col-md-6">
+                <h6 class="fw-semibold">Past Week</h6>
+                <canvas id="weekChart-{{ item.habit_id }}" height="120"></canvas>
+              </div>
+              <div class="col-md-6">
+                <h6 class="fw-semibold">Past Month</h6>
+                <canvas id="monthChart-{{ item.habit_id }}" height="120"></canvas>
+              </div>
+            </div>
+            {% if item.tracking_type == 'int' %}
+              <div class="mt-2 small text-muted">(Shows integer values entered each day)</div>
+            {% else %}
+              <div class="mt-2 small text-muted">(Shows completion: 1 = Yes, 0 = No)</div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="alert alert-info">No habits or data to show.</div>
+    {% endif %}
+  </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const analytics = {{ analytics_json|safe }};
+analytics.forEach(item => {
+  // Week chart
+  const weekLabels = item.week.map(d => {
+    const date = new Date(d.date);
+    return date.toLocaleDateString(undefined, { weekday: 'short' });
+  });
+  const weekData = item.week.map(d => d.value);
+  new Chart(document.getElementById('weekChart-' + item.habit_id).getContext('2d'), {
+    type: item.tracking_type === 'int' ? 'line' : 'bar',
+    data: {
+      labels: weekLabels,
+      datasets: [{
+        label: item.tracking_type === 'int' ? 'Value' : 'Completed',
+        data: weekData,
+        backgroundColor: '#198754',
+        borderColor: '#198754',
+        fill: item.tracking_type === 'int',
+        tension: 0.3,
+        pointRadius: 2
+      }]
+    },
+    options: {
+      scales: { y: { beginAtZero: true } },
+      plugins: { legend: { display: false }, tooltip: { enabled: true } }
+    }
+  });
+  // Month chart
+  const monthLabels = item.month.map(d => {
+    const date = new Date(d.date);
+    return date.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+  });
+  const monthData = item.month.map(d => d.value);
+  new Chart(document.getElementById('monthChart-' + item.habit_id).getContext('2d'), {
+    type: item.tracking_type === 'int' ? 'line' : 'bar',
+    data: {
+      labels: monthLabels,
+      datasets: [{
+        label: item.tracking_type === 'int' ? 'Value' : 'Completed',
+        data: monthData,
+        backgroundColor: '#198754',
+        borderColor: '#198754',
+        fill: item.tracking_type === 'int',
+        tension: 0.3,
+        pointRadius: 2
+      }]
+    },
+    options: {
+      scales: { y: { beginAtZero: true } },
+      plugins: { legend: { display: false }, tooltip: { enabled: true } }
+    }
+  });
+});
+</script>
+{% endblock content %}
