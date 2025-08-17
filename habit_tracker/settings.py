@@ -27,17 +27,17 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-RENDER_EXTERNAL_HOST = os.environ.get('RENDER_EXTERNAL_HOST')
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-if RENDER_EXTERNAL_HOST:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOST)
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 CSRF_TRUSTED_ORIGINS = []
-if RENDER_EXTERNAL_HOST:
-    CSRF_TRUSTED_ORIGINS.append(f'https://{RENDER_EXTERNAL_HOST}')
+if RENDER_EXTERNAL_HOSTNAME:
+    CSRF_TRUSTED_ORIGINS.append(f'https://{RENDER_EXTERNAL_HOSTNAME}')
 
 
 # Application definition
