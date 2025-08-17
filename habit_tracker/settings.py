@@ -32,8 +32,8 @@ ALLOWED_HOSTS = ['habit_tracker.onrender.com']
 # Application definition
 
 INSTALLED_APPS = [
-    'habit.apps.HabitConfig',
-    'users.apps.UsersConfig',
+    'habit_tracker.habit.apps.HabitConfig',
+    'habit_tracker.users.apps.UsersConfig',
     'crispy_forms',
     'crispy_bootstrap4',
     'django.contrib.admin',
