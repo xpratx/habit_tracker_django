@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from users import views as UserViews
+from habit_tracker.users import views as UserViews
 
 urlpatterns = [
     path('', views.home, name='habit-home'),

@@ -12,7 +12,7 @@ def about(request):
     return render(request, 'habit/about.html')
 
 def daily_tracker(request):
-    from users.models import Habit, HabitRecord
+    from habit_tracker.users.models import Habit, HabitRecord
     from datetime import date, datetime, timedelta
     from django.contrib import messages
     import calendar
