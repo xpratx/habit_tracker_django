@@ -1,1 +1,1 @@
-web: gunicorn settings.wsgi --chdir habit_tracker
+web: gunicorn habit_tracker.wsgi
