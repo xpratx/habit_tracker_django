@@ -1,0 +1,25 @@
+/* Sidebar styles */
+.sidebar {
+  background: #198754 !important; /* Bootstrap 'success' green */
+  min-width: 220px;
+  padding-top: 2rem;
+}
+/* Navigation link styles */
+.nav-custom {
+  color: #fff !important;
+  font-weight: 500;
+  padding: 1rem 2rem;
+}
+.nav-custom:hover, .nav-custom:focus {
+  background: #157347;
+  color: #fff !important;
+}
+
+.sidebar-footer {
+    position: absolute;
+    bottom: 16px; /* or 0 if you want it truly flush */
+    left: 16px;   /* to align with sidebar padding */
+    right: 0;
+    display: flex;
+    gap: 12px;
+}
