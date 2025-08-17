@@ -1,1 +1,1 @@
-web: gunicorn habit_tracker.wsgi
+web: python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn habit_tracker.wsgi:application
