@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-key')
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 
-ALLOWED_HOSTS = ['habit_tracker.onrender.com']
+ALLOWED_HOSTS = ['habit-tracker-q0cl.onrender.com']
 
 # Application definition
 
