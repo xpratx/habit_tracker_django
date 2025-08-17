@@ -77,7 +77,7 @@ def daily_tracker(request):
     return render(request, 'habit/daily_tracker.html', context)
 
 def analytics(request):
-    from users.models import Habit, HabitRecord
+    from habit_tracker.users.models import Habit, HabitRecord
     from datetime import date, timedelta
     import calendar, json
     if not request.user.is_authenticated:
